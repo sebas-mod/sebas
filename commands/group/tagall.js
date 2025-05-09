@@ -10,7 +10,7 @@ module.exports = {
         group: true
     },
     code: async (ctx) => {
-        const input = ctx.args.join(" ") || quote("👋 Hola mundo!");
+        const input = ctx.args.join(" ") || ctx.quoted.conversation || Object.values(ctx.quoted).map(v => v?.text || v?.caption).find(Boolean) || null;;
 
         try {
             const members = await ctx.group().members();
