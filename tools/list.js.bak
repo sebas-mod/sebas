@@ -1,0 +1,136 @@
+// Impor modul dan dependensi yang diperlukan
+const api = require("./api.js");
+const {
+    bold,
+    italic,
+    quote
+} = require("@mengkodingan/ckptw");
+const axios = require("axios");
+const util = require("node:util");
+
+async function get(type) {
+    try {
+        let text = "";
+
+        const createList = (data, formatter) => `${data.map(formatter).join(
+            "\n" + 
+            `${quote("─────")}\n`)}\n` +
+            "\n" +
+            config.msg.footer;
+
+        switch (type) {
+            case "claim": {
+                const data = [
+                    "daily (Premios diarios)",
+                    "weekly (Premios semanales)",
+                    "monthly (Regalos mensuales)",
+                    "yearly (Regalo anual)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "fixdb": {
+                const data = [
+                    "user (Datos de usuario)",
+                    "group (Datos de grupo)",
+                    "menfess (Datos de confesiones)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "group": {
+                const data = [
+                    "open (abrir grupo)",
+                    "close (cerrar grupo)",
+                    "lock (bloquear grupo)",
+                    "unlock (desbloquear grupo)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "mode": {
+                const data = [
+                    "group (Modo grupo, solo responder en el chat grupal)",
+                    "private (Modo privado, solo responder en chat privado)",
+                    "public (Modo público, responder en chats grupales y chats privados)",
+                    "self (Modo propio, solo responde a si mismo y a su dueño)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "osettext": {
+                const data = [
+                    "donate (Variabel yang tersedia: %tag%, %name%, %prefix%, %command%, %footer%, %readmore%) (Atur teks donasi)",
+                    "price (Variabel yang tersedia: %tag%, %name%, %prefix%, %command%, %footer%, %readmore%) (Atur teks harga)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "setoption": {
+                const data = [
+                    "antiaudio (Anti audio)",
+                    "Antidocument (Anti dokumen)",
+                    "Antigif (Anti GIF)",
+                    "Antiimage (Anti gambar)",
+                    "antilink (Anti link)",
+                    "antinsfw (Anti NSFW, seperti pornografi)",
+                    "antispam (Anti spam)",
+                    "antisticker (Anti stiker)",
+                    "antivideo (Anti video)",
+                    "antitoxic (Anti toxic, seperti bahasa kasar)",
+                    "autokick (Dikeluarkan secara otomatis, jika ada yang melanggar salah satu opsi 'anti...')",
+                    "gamerestrict (Anggota dilarang bermain game)",
+                    "welcome (Sambutan member)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "setprofile": {
+                const data = [
+                    "autolevelup (Otomatis naik level)",
+                    "username (Nama pengguna)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "settext": {
+                const data = [
+                    "goodbye (Teks goodbye, variabel yang tersedia: %tag%, %subject%, %description%) (Atur pesan perpisahan)",
+                    "intro (Teks intro)",
+                    "welcome (Teks welcome, variabel yang tersedia: %tag%, %subject%, %description%) (Atur pesan selamat datang)"
+                ];
+                text = createList(data, d => `${quote(d)}`);
+                break;
+            }
+            case "translate": {
+                const data = (await axios.get(api.createUrl("nyxs", "/tools/translate", {})).catch(err => err.response.data.available_languange)) || [];
+                text = createList(data, d =>
+                    `${quote(`Kode: ${d.code}`)}\n` +
+                    `${quote(`Bahasa: ${d.bahasa}`)}`
+                );
+                break;
+            }
+            case "tts": {
+                const data = (await axios.get(api.createUrl("nyxs", "/tools/tts", {}))).data.available_languange;
+                text = createList(data, d =>
+                    `${quote(`Kode: ${d.code}`)}\n` +
+                    `${quote(`Bahasa: ${d["bahasa negara"]}`)}`
+                );
+                break;
+            }
+            default: {
+                text = quote(`❎ Tipe tidak diketahui: ${type}`);
+                break;
+            }
+        }
+
+        return text;
+    } catch (error) {
+        consolefy.error(`Error: ${util.format(error)}`);
+        return null;
+    }
+}
+
+module.exports = {
+    get
+};
