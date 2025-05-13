@@ -10,7 +10,7 @@ const {
 global.config = {
     // Informasi bot dasar
     bot: {
-        name: "𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏 (Private Version)", // Nama bot
+        name: "𝙎𝙈𝘼𝙎𝙃 𝘽𝙊𝙏 (Private Version)", // Nama bot
         prefix: /^[°•π÷×¶∆£¢€¥®™+✓_=|/~!?@#%^&.©^]/i, // Karakter awalan perintah yang diizinkan
         phoneNumber: "5491149158196", // Nomor telepon bot (opsional jika menggunakan QR code)
         thumbnail: "https://i.pinimg.com/736x/56/1e/de/561ede2cbf5b6706108f445b9be55bd8.jpg", // Gambar thumbnail bot
@@ -63,7 +63,7 @@ global.config = {
         restrict: quote("⛔ ¡Este comando ha sido restringido por razones de seguridad!"), // Pesan pembatasan perintah
 
         readmore: "\u200E".repeat(4001), // String read more
-        note: "“𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏”", // Catatan
+        note: "“𝙎𝙈𝘼𝙎𝙃 𝘽𝙊𝙏”", // Catatan
         footer: italic("𝙙𝙚𝙫𝙚𝙡𝙤𝙥𝙚𝙙 𝙗𝙮 𝙎𝙚𝙗𝙖𝙨-𝙈𝘿"), // Footer di pesan bot
 
         wait: quote("🔄 Procesando..."), // Pesan loading
@@ -74,14 +74,14 @@ global.config = {
     // Informasi owner bot
     owner: {
         name: "𝙎𝙚𝙗𝙖𝙨-𝙈𝘿", // Nama owner bot
-        organization: "𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏", // Nama organisasi owner bot
+        organization: "𝙎𝙈𝘼𝙎𝙃 𝘽𝙊𝙏", // Nama organisasi owner bot
         id: "5491166887146", // Nomor telepon owner bot
         co: ["5491166887146"] // Nomor co-owner bot
     },
 
     // Stiker bot
     sticker: {
-        packname: "Created By", // Nama paket stiker
+        packname: "Created By sebas.MD", // Nama paket stiker
         author: " 𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏 (PV Version)" // Pembuat stiker
     },
 
