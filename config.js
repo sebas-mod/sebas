@@ -10,7 +10,7 @@ const {
 global.config = {
     // Informasi bot dasar
     bot: {
-        name: "Waguri Ai (Private Version)", // Nama bot
+        name: "𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏 (Private Version)", // Nama bot
         prefix: /^[°•π÷×¶∆£¢€¥®™+✓_=|/~!?@#%^&.©^]/i, // Karakter awalan perintah yang diizinkan
         phoneNumber: "5491149158196", // Nomor telepon bot (opsional jika menggunakan QR code)
         thumbnail: "https://i.pinimg.com/736x/56/1e/de/561ede2cbf5b6706108f445b9be55bd8.jpg", // Gambar thumbnail bot
@@ -63,8 +63,8 @@ global.config = {
         restrict: quote("⛔ ¡Este comando ha sido restringido por razones de seguridad!"), // Pesan pembatasan perintah
 
         readmore: "\u200E".repeat(4001), // String read more
-        note: "“Lorem ipsum dolor sit amet, tenebris in umbra, vitae ad mortem.”", // Catatan
-        footer: italic("Developed by KenisawaDev"), // Footer di pesan bot
+        note: "“𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏”", // Catatan
+        footer: italic("𝙙𝙚𝙫𝙚𝙡𝙤𝙥𝙚𝙙 𝙗𝙮 𝙎𝙚𝙗𝙖𝙨-𝙈𝘿"), // Footer di pesan bot
 
         wait: quote("🔄 Procesando..."), // Pesan loading
         notFound: quote("❎ ¡No se encontró nada! Por favor, inténtelo de nuevo más tarde."), // Pesan item tidak ditemukan
@@ -73,8 +73,8 @@ global.config = {
 
     // Informasi owner bot
     owner: {
-        name: "KenisawaDev", // Nama owner bot
-        organization: "Deluxe Team", // Nama organisasi owner bot
+        name: "𝙎𝙚𝙗𝙖𝙨-𝙈𝘿", // Nama owner bot
+        organization: "𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏", // Nama organisasi owner bot
         id: "5491166887146", // Nomor telepon owner bot
         co: ["5491166887146"] // Nomor co-owner bot
     },
@@ -82,7 +82,7 @@ global.config = {
     // Stiker bot
     sticker: {
         packname: "Created By", // Nama paket stiker
-        author: " Waguri Ai (PV Version)" // Pembuat stiker
+        author: " 𝙈𝘼𝘿𝘼𝙍𝘼 𝘽𝙊𝙏 (PV Version)" // Pembuat stiker
     },
 
     // Sistem bot
