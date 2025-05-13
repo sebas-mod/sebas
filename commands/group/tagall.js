@@ -3,7 +3,7 @@ const {
 } = require("@mengkodingan/ckptw");
 
 module.exports = {
-    name: "tagall",
+    name: "todos",
     category: "group",
     permissions: {
         admin: true,
