@@ -4,7 +4,7 @@ const {
 
 module.exports = {
     name: "hidetag",
-    aliases: ["ht"],
+    aliases: ["n"],
     category: "group",
     permissions: {
         admin: true,
