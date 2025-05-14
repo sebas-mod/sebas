@@ -1,5 +1,9 @@
+const {
+    quote
+} = require("@mengkodingan/ckptw");
+
 module.exports = {
-  name: "todos",
+  name: "tagall",
   category: "group",
   desc: "Menciona a todos los participantes del grupo con imagen",
   async run(client, message) {
@@ -19,7 +23,7 @@ module.exports = {
     const caption = `👥 Total: ${participants.length} participantes.\nActivarse gente!\n─────\n${tags}\n\nby sebas - MD`;
 
     // URL de imagen (puedes cambiarla por otra si quieres)
-    const imageUrl = 'https://i.imgur.com/2Z8bdeN.jpg';
+    const imageUrl = 'https://uploader.nyxs.pw/tmp/CJ2b75-1747226092714.jpg';
 
     // Enviar imagen con pie de foto y menciones
     await client.sendMessage(message.from, {
