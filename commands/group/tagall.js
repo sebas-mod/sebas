@@ -12,7 +12,7 @@ module.exports = {
   desc: "Menciona a todos los participantes del grupo",
   code: async (ctx) => {
     try {
-      const input = ctx.args.join(" ") || ctx.quoted?.conversation || Object.values(ctx.quoted || {}).map(v => v?.text || v?.caption).find(Boolean) || "¡Activarse gente!";
+      const input = ctx.args.join(" ") || ctx.quoted?.conversation || Object.values(ctx.quoted || {}).map(v => v?.text || v?.caption).find(Boolean);
       const group = await ctx.group();
       const members = await group.members();
 
@@ -25,7 +25,10 @@ module.exports = {
       });
 
       const tags = mentions.map(m => m.tag).join("\n");
-      const message = `👥 Total: ${members.length} participantes.\n${input}\n─────\n${tags}\n\nby sebas - MD`;
+      const message =
+        `👥 Total: ${members.length} participantes.\n` +
+        (input ? `🗣 Mensaje: ${input}\n` : '') +
+        `─────\n${tags}\n\nby sebas - MD`;
 
       return await ctx.reply({
         text: message,
