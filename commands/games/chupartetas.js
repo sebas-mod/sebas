@@ -18,14 +18,10 @@ module.exports = {
     group: true
   },
   code: async (ctx) => {
-    global.db = global.db || { data: { users: {} } };
-
-    const mention =
-      ctx.quoted?.sender ||
-      (Array.isArray(ctx.msg?.mentions) && ctx.msg.mentions.length > 0 ? ctx.msg.mentions[0] : null);
+    const mention = ctx.msg?.mentionedJid?.[0] || ctx.quoted?.sender;
 
     if (!mention) {
-      return await ctx.reply("❌ Debes mencionar a alguien o responder su mensaje.");
+      return await ctx.reply("❌ Debes etiquetar a alguien o responder su mensaje.");
     }
 
     const name1 = await ctx.getName(ctx.sender);
