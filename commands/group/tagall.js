@@ -9,12 +9,12 @@ module.exports = {
     admin: true,
     group: true
   },
-  desc: "Menciona a todos los participantes del grupo con imagen",
+  desc: "Menciona a todos los participantes del grupo",
   code: async (ctx) => {
     try {
       const input = ctx.args.join(" ") || ctx.quoted?.conversation || Object.values(ctx.quoted || {}).map(v => v?.text || v?.caption).find(Boolean) || "¡Activarse gente!";
       const group = await ctx.group();
-      const members = await group.members(); // <- CORREGIDO
+      const members = await group.members();
 
       const mentions = members.map(m => {
         const serialized = tools.general.getID(m.id);
@@ -25,13 +25,10 @@ module.exports = {
       });
 
       const tags = mentions.map(m => m.tag).join("\n");
-      const caption = `👥 Total: ${members.length} participantes.\n${input}\n─────\n${tags}\n\nby sebas - MD`;
-
-      const imageUrl = 'https://i.imgur.com/2Z8bdeN.jpg';
+      const message = `👥 Total: ${members.length} participantes.\n${input}\n─────\n${tags}\n\nby sebas - MD`;
 
       return await ctx.reply({
-        image: { url: imageUrl },
-        caption,
+        text: message,
         mentions: mentions.map(m => m.mention)
       });
 
