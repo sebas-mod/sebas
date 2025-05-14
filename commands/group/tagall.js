@@ -14,7 +14,7 @@ module.exports = {
     try {
       const input = ctx.args.join(" ") || ctx.quoted?.conversation || Object.values(ctx.quoted || {}).map(v => v?.text || v?.caption).find(Boolean) || "¡Activarse gente!";
       const group = await ctx.group();
-      const members = group.members();
+      const members = await group.members(); // <- CORREGIDO
 
       const mentions = members.map(m => {
         const serialized = tools.general.getID(m.id);
@@ -27,7 +27,7 @@ module.exports = {
       const tags = mentions.map(m => m.tag).join("\n");
       const caption = `👥 Total: ${members.length} participantes.\n${input}\n─────\n${tags}\n\nby sebas - MD`;
 
-      const imageUrl = 'https://t.me/+O4ZpMTe6KAJkYTBl';
+      const imageUrl = 'https://i.imgur.com/2Z8bdeN.jpg';
 
       return await ctx.reply({
         image: { url: imageUrl },
