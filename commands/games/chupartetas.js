@@ -18,9 +18,14 @@ module.exports = {
     group: true
   },
   code: async (ctx) => {
-    const mention = ctx.quoted?.sender || ctx.mentions[0];
+    global.db = global.db || { data: { users: {} } };
+
+    const mention =
+      ctx.quoted?.sender ||
+      (Array.isArray(ctx.mentions) && ctx.mentions.length > 0 ? ctx.mentions[0] : null);
+
     if (!mention) {
-      return await ctx.reply("❌ Debes mencionar a alguien.");
+      return await ctx.reply("❌ Debes mencionar o responder a alguien.");
     }
 
     const name1 = await ctx.getName(ctx.sender);
