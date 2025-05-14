@@ -1,40 +1,35 @@
-const {
-    quote
-} = require("@mengkodingan/ckptw");
-const {
-    Sticker,
-    StickerTypes
-} = require("wa-sticker-formatter");
+const { Sticker, StickerTypes } = require("wa-sticker-formatter");
 
 module.exports = {
-    name: "sticker",
-    aliases: ["s", "stiker"],
-    category: "converter",
-    permissions: {},
-    code: async (ctx) => {
-        const msgType = ctx.getMessageType();
-        const [checkMedia, checkQuotedMedia] = await Promise.all([
-            tools.cmd.checkMedia(msgType, ["image", "gif", "video"]),
-            tools.cmd.checkQuotedMedia(ctx.quoted, ["image", "gif", "video"])
-        ]);
+  name: "sticker",
+  aliases: ["s", "stiker"],
+  category: "converter",
+  permissions: {},
+  code: async (ctx) => {
+    const msgType = ctx.getMessageType();
+    const isImage = msgType === "image" || ctx.quoted?.mimetype?.includes("image");
+    const isVideo = msgType === "video" || ctx.quoted?.mimetype?.includes("video");
 
-        if (!checkMedia && !checkQuotedMedia) return await ctx.reply(quote(tools.cmd.generateInstruction(["send", "reply"], ["image", "gif", "video"])));
-
-        try {
-            const buffer = await ctx.msg.media.toBuffer() || await ctx.quoted.media.toBuffer();
-            const result = new Sticker(buffer, {
-                pack: config.sticker.packname,
-                author: config.sticker.author,
-                type: StickerTypes.FULL,
-                categories: ["🌕"],
-                id: ctx.id,
-                quality: 50
-            });
-
-            return await ctx.reply(await result.toMessage());
-        } catch (error) {
-            return await tools.cmd.handleError(ctx, error, false);
-        }
+    if (!isImage && !isVideo) {
+      return await ctx.reply("❌ Debes enviar o responder a una *imagen* o *video corto* (menos de 6 segundos).");
     }
+
+    try {
+      const media = ctx.msg?.media || ctx.quoted?.media;
+      const buffer = await media.toBuffer();
+
+      const sticker = new Sticker(buffer, {
+        pack: "Baylis Pack",
+        author: "Tu Bot",
+        type: StickerTypes.FULL,
+        quality: 70,
+        id: ctx.id
+      });
+
+      await ctx.reply(await sticker.toMessage());
+    } catch (error) {
+      console.error("❌ Error creando sticker:", error);
+      return await ctx.reply("❌ Ocurrió un error al crear el sticker. Asegúrate de enviar un archivo válido.");
+    }
+  }
 };
-//////
