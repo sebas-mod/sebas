@@ -22,10 +22,10 @@ module.exports = {
 
     const mention =
       ctx.quoted?.sender ||
-      (Array.isArray(ctx.mentions) && ctx.mentions.length > 0 ? ctx.mentions[0] : null);
+      (Array.isArray(ctx.msg?.mentions) && ctx.msg.mentions.length > 0 ? ctx.msg.mentions[0] : null);
 
     if (!mention) {
-      return await ctx.reply("❌ Debes mencionar o responder a alguien.");
+      return await ctx.reply("❌ Debes mencionar a alguien o responder su mensaje.");
     }
 
     const name1 = await ctx.getName(ctx.sender);
