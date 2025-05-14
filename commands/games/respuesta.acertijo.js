@@ -10,17 +10,21 @@ module.exports = {
 
     const juego = global.acertijos[groupId];
 
-    if (!juego) {
-      return await ctx.reply("❌ No hay un acertijo activo. Usa `.acertijo` para comenzar uno.");
+    // Validar si hay juego activo
+    if (!juego || !juego.mensajeId) {
+      return;
     }
 
-    const respuestaUsuario = ctx.args.join(" ").toLowerCase();
-
-    if (!respuestaUsuario) {
-      return await ctx.reply("✏️ Debes escribir una respuesta. Ejemplo: `.responder el silencio`");
+    // Verificar que estén respondiendo al mensaje del acertijo
+    const respuestaId = ctx.msg?.contextInfo?.stanzaId;
+    if (respuestaId !== juego.mensajeId) {
+      return;
     }
 
-    if (respuestaUsuario === juego.respuesta) {
+    const texto = ctx.text?.toLowerCase().trim();
+    if (!texto) return;
+
+    if (texto === juego.respuesta.toLowerCase()) {
       delete global.acertijos[groupId];
       return await ctx.reply(`🎉 ¡Correcto! La respuesta era: *${juego.respuesta}*`);
     }
@@ -30,7 +34,7 @@ module.exports = {
     if (juego.intentos >= 5) {
       const solucion = juego.respuesta;
       delete global.acertijos[groupId];
-      return await ctx.reply(`❌ ¡Incorrecto! Has alcanzado el máximo de intentos.\n📌 La respuesta correcta era: *${solucion}*`);
+      return await ctx.reply(`❌ ¡Incorrecto! Se acabaron los intentos.\n📌 La respuesta correcta era: *${solucion}*`);
     }
 
     return await ctx.reply(`❌ Incorrecto. Intentos restantes: *${5 - juego.intentos}*`);
