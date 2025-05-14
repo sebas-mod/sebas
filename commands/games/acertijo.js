@@ -8,20 +8,10 @@ const acertijos = [
   { pregunta: `📚 *Acertijo 7:*\n¿Qué palabra se escribe incorrectamente en todos los diccionarios?`, respuesta: `Incorrectamente` },
   { pregunta: `🦉 *Acertijo 8:*\nVuelo sin alas, lloro sin ojos. ¿Qué soy?`, respuesta: `Las nubes` },
   { pregunta: `📦 *Acertijo 9:*\nEstá en el centro de gravedad, pero no tiene masa. ¿Qué es?`, respuesta: `La letra 'v'` },
-  { pregunta: `🔥 *Acertijo 10:*\nTengo un solo ojo, pero no puedo ver. ¿Qué soy?`, respuesta: `Una aguja` },
-  { pregunta: `⏳ *Acertijo 11:*\nTiene manos, pero no puede aplaudir. ¿Qué es?`, respuesta: `Un reloj` },
-  { pregunta: `🌧️ *Acertijo 12:*\nEntre más seco, más moja. ¿Qué es?`, respuesta: `Una toalla` },
-  { pregunta: `🪞 *Acertijo 13:*\nRefleja pero no habla. ¿Qué es?`, respuesta: `Un espejo` },
-  { pregunta: `🧠 *Acertijo 14:*\nMientras más se comparte, más crece. ¿Qué es?`, respuesta: `El conocimiento` },
-  { pregunta: `🚪 *Acertijo 15:*\nTiene cerradura pero no puerta. ¿Qué es?`, respuesta: `Un archivo encriptado` },
-  { pregunta: `🔐 *Acertijo 16:*\nTiene claves pero no cerraduras. ¿Qué es?`, respuesta: `Un teclado` },
-  { pregunta: `🧱 *Acertijo 17:*\n¿Qué se moja mientras seca?`, respuesta: `Una toalla` },
-  { pregunta: `🪵 *Acertijo 18:*\nEntre más te llevas, más dejas atrás. ¿Qué es?`, respuesta: `Huellas` },
-  { pregunta: `💭 *Acertijo 19:*\nNo se puede ver, ni tocar, pero llena una habitación. ¿Qué es?`, respuesta: `El silencio` },
-  { pregunta: `📏 *Acertijo 20:*\nTiene pies pero no camina. ¿Qué es?`, respuesta: `Una regla` }
+  { pregunta: `🔥 *Acertijo 10:*\nTengo un solo ojo, pero no puedo ver. ¿Qué soy?`, respuesta: `Una aguja` }
 ];
 
-global.rondasAcertijo = global.rondasAcertijo || {};
+global.acertijos = global.acertijos || {};
 
 module.exports = {
   name: "acertijo",
@@ -31,12 +21,14 @@ module.exports = {
   },
   code: async (ctx) => {
     const groupId = ctx.chat;
-    global.rondasAcertijo[groupId] = {
-      acertijo: acertijos[Math.floor(Math.random() * acertijos.length)],
-      intentos: 0
-    };
+    const elegido = acertijos[Math.floor(Math.random() * acertijos.length)];
 
-    const pregunta = global.rondasAcertijo[groupId].acertijo.pregunta;
-    await ctx.reply(`${pregunta}\n\nResponde al mensaje con tu respuesta usando: .respuesta <texto>`);
+    const enviado = await ctx.reply(`${elegido.pregunta}\n\nResponde a este mensaje para intentar adivinar.`);
+
+    global.acertijos[groupId] = {
+      respuesta: elegido.respuesta.toLowerCase(),
+      intentos: 0,
+      mensajeId: enviado.key.id
+    };
   }
 };
