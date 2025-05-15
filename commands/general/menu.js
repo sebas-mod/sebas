@@ -42,8 +42,8 @@ let text = `Hola @${tools.general.getID(ctx.sender.jid)}!, Aquí esta la lista d
               `${quote(`Fecha: ${moment.tz(config.system.timeZone).locale("es").format("dddd, DD MMMM YYYY")}`)}\n` +
                 `${quote(`Hora: ${moment.tz(config.system.timeZone).format("HH.mm.ss")}`)}\n` +
                 "\n" +
-                `${quote(`Bot Activo: ${tools.general.convertMsToDuration(Date.now() - config.bot.readyAt)}`)}\n` +
-                `${quote(`Base De Datos: ${config.bot.dbSize} (Simpl.DB - JSON)`)}\n` +
+`${quote(`Bot Activo: ${tools.general.convertMsToDuration(Date.now() - config.bot.readyAt)}`)}\n` +
+    `${quote(`Base De Datos: ${config.bot.dbSize} (Simpl.DB - JSON)`)}\n` +
                 `${quote("Librería: @mengkodingan/ckptw")}\n` +
                 "\n" +
                 `${italic("creador: sebas-MD wa.me/5466887146!")}\n` +
