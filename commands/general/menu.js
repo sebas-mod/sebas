@@ -36,8 +36,8 @@ module.exports = {
                 "games": "games"
             };
 
-            let text = `Hola @${tools.general.getID(ctx.sender.jid)}!, Aquí esta la lista de comandos disponibles!\n` +
-    `Total de comandos: ${ctx.bot.cmd.size}\n` +
+let text = `Hola @${tools.general.getID(ctx.sender.jid)}!, Aquí esta la lista de comandos disponibles!\n` +
+    `${quote(`Total de comandos: ${ctx.bot.cmd.size}`)}\n` +
     "\n" +
               `${quote(`Fecha: ${moment.tz(config.system.timeZone).locale("es").format("dddd, DD MMMM YYYY")}`)}\n` +
                 `${quote(`Hora: ${moment.tz(config.system.timeZone).format("HH.mm.ss")}`)}\n` +
