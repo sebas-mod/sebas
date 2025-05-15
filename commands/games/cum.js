@@ -18,7 +18,9 @@ module.exports = {
   description: "cum",
   category: "games",
   use: "@usuario",
-  async code(m, { conn }) {
+  async code(m, sock) {
+    const conn = sock; // conn es sock directamente
+
     const mention = m.quoted?.sender || m.mentions?.[0];
     if (!mention) return m.reply("Etiqueta o responde a alguien.");
 
@@ -32,10 +34,21 @@ module.exports = {
     const caption = `${name1} se vino dentro de ${name2}`;
     const mediaUrl = videos[Math.floor(Math.random() * videos.length)];
 
-    await conn.sendMessage(m.chat, {
-      video: { url: mediaUrl },
-      caption,
-      mentions: [m.sender, mention],
-    }, { quoted: m });
+    const isImage = mediaUrl.endsWith(".jpg") || mediaUrl.endsWith(".png");
+
+    const msgContent = isImage
+      ? {
+          image: { url: mediaUrl },
+          caption,
+          mentions: [m.sender, mention]
+        }
+      : {
+          video: { url: mediaUrl },
+          gifPlayback: true,
+          caption,
+          mentions: [m.sender, mention]
+        };
+
+    await conn.sendMessage(m.chat, msgContent, { quoted: m });
   }
 };
