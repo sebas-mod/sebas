@@ -1,5 +1,5 @@
-// Adaptado completamente para CKPTW
-import fetch from 'node-fetch'
+// Comando para CKPTW completamente funcional
+import fetch from 'node-fetch';
 
 const videos = [
   'https://telegra.ph/file/9243544e7ab350ce747d7.mp4',
@@ -27,8 +27,10 @@ export const command = {
 
     const name1 = await conn.getName(m.sender);
     const name2 = await conn.getName(mention);
-    const reaction = { react: { text: "💦", key: m.key } };
-    await conn.sendMessage(m.chat, reaction);
+
+    await conn.sendMessage(m.chat, {
+      react: { text: "💦", key: m.key }
+    });
 
     const caption = `${name1} se vino dentro de ${name2}`;
     const mediaUrl = videos[Math.floor(Math.random() * videos.length)];
