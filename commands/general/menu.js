@@ -96,25 +96,32 @@ let text = `Hola @${tools.general.getID(ctx.sender.jid)}!, Aquí esta la lista d
                 const url = (await axios.get(tools.api.createUrl("http://vid2aud.hofeda4501.serv00.net", "/api/img2vid", {
                     url: config.bot.thumbnail
                 }))).data.result;
-                return await ctx.sendMessage(ctx.id, {
-                    video: {
-                        url
-                    },
-                    mimetype: mime.lookup("mp4"),
-                    caption: text,
-                    gifPlayback: true,
-                    contextInfo: {
-                        mentionedJid: [ctx.sender.jid],
-                        forwardingScore: 9999,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: config.bot.newsletterJid,
-                            newsletterName: config.bot.name
-                        }
-                    },
-                }, {
-                    quoted: fakeQuotedText
-                });
+        return await ctx.sendMessage(ctx.id, {
+  video: {
+    url
+  },
+  mimetype: mime.lookup("mp4"),
+  caption: text,
+  gifPlayback: true,
+  buttons: [
+    { buttonId: `${ctx.used.prefix}owner`, buttonText: { displayText: "👑 Owner" }, type: 1 },
+    { buttonId: `${ctx.used.prefix}perfil`, buttonText: { displayText: "🙋‍♂️ Mi Perfil" }, type: 1 },
+    { buttonId: `${ctx.used.prefix}reg Juan.20.🙋‍♂️`, buttonText: { displayText: "📝 Registrarse" }, type: 1 }
+  ],
+  headerType: 4,
+  contextInfo: {
+    mentionedJid: [ctx.sender.jid],
+    forwardingScore: 9999,
+    isForwarded: true,
+    forwardedNewsletterMessageInfo: {
+      newsletterJid: config.bot.newsletterJid,
+      newsletterName: config.bot.name
+    }
+  },
+}, {
+  quoted: fakeQuotedText
+});
+
             } catch (error) {
                 if (error.status !== 200) return await ctx.sendMessage(ctx.id, {
                     text,
