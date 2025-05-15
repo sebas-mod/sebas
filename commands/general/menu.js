@@ -32,7 +32,8 @@ module.exports = {
                 "tool": "Tool",
                 "owner": "Owner",
                 "information": "Information",
-                "misc": "Miscellaneous"
+                "misc": "Miscellaneous",
+                "games": "games"
             };
 
             let text = `Hola @${tools.general.getID(ctx.sender.jid)}!, Aquí esta la lista de comandos disponibles!\n` +
@@ -44,7 +45,7 @@ module.exports = {
                 `${quote(`Base De Datos: ${config.bot.dbSize} (Simpl.DB - JSON)`)}\n` +
                 `${quote("Librería: @mengkodingan/ckptw")}\n` +
                 "\n" +
-                `${italic("No olvides donar para mantener la bot en línea!")}\n` +
+                `${italic("creador: sebas-MD wa.me/5466887146!")}\n` +
                 `${config.msg.readmore}\n`;
 
             for (const category of Object.keys(tag)) {
