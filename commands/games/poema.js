@@ -62,7 +62,7 @@ mi amor eterno, mi bien total.`
 
 module.exports = {
   name: "poema",
-  category: "diversion",
+  category: "games",
   permissions: {
     group: true
   },
