@@ -1,6 +1,5 @@
 module.exports = {
   name: "pista",
-  category: "games",
   permissions: {
     group: true
   },
