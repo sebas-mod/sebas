@@ -1,6 +1,5 @@
 module.exports = {
   name: "cancelar",
-  category: "games",
   permissions: {
     group: true
   },
