@@ -17,46 +17,56 @@ module.exports = {
   aliases: [],
   description: "cum",
   category: "games",
-  use: "@usuario o responde al mensaje",
+  use: "@usuario o responde a un mensaje",
   async code(m, sock) {
     const conn = sock;
 
     let mention;
-    if (m.quoted && m.quoted.sender) {
+
+    // Si se responde a un mensaje
+    if (m.quoted?.sender) {
       mention = m.quoted.sender;
-    } else if (m.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]) {
+    }
+
+    // Si se menciona a alguien
+    else if (m.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]) {
       mention = m.message.extendedTextMessage.contextInfo.mentionedJid[0];
     }
 
+    // Si no se menciona ni responde
     if (!mention) {
       return m.reply("Debes mencionar o responder al mensaje de alguien.");
     }
 
-    const name1 = await conn.getName(m.sender);
-    const name2 = await conn.getName(mention);
+    try {
+      const name1 = await conn.getName(m.sender);
+      const name2 = await conn.getName(mention);
 
-    await conn.sendMessage(m.chat, {
-      react: { text: "💦", key: m.key }
-    });
+      await conn.sendMessage(m.chat, {
+        react: { text: "💦", key: m.key }
+      });
 
-    const caption = `${name1} se vino dentro de ${name2}`;
-    const mediaUrl = videos[Math.floor(Math.random() * videos.length)];
+      const caption = `${name1} se vino dentro de ${name2}`;
+      const mediaUrl = videos[Math.floor(Math.random() * videos.length)];
+      const isImage = mediaUrl.endsWith(".jpg") || mediaUrl.endsWith(".png");
 
-    const isImage = mediaUrl.endsWith(".jpg") || mediaUrl.endsWith(".png");
+      const msgContent = isImage
+        ? {
+            image: { url: mediaUrl },
+            caption,
+            mentions: [m.sender, mention]
+          }
+        : {
+            video: { url: mediaUrl },
+            gifPlayback: true,
+            caption,
+            mentions: [m.sender, mention]
+          };
 
-    const msgContent = isImage
-      ? {
-          image: { url: mediaUrl },
-          caption,
-          mentions: [m.sender, mention]
-        }
-      : {
-          video: { url: mediaUrl },
-          gifPlayback: true,
-          caption,
-          mentions: [m.sender, mention]
-        };
-
-    await conn.sendMessage(m.chat, msgContent, { quoted: m });
+      await conn.sendMessage(m.chat, msgContent, { quoted: m });
+    } catch (e) {
+      console.error("Error en el comando cum:", e);
+      m.reply("Ocurrió un error inesperado.");
+    }
   }
 };
