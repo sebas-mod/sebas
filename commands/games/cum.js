@@ -17,25 +17,21 @@ module.exports = {
   aliases: [],
   description: "cum",
   category: "games",
-  use: "@usuario o responde a un mensaje",
+  use: "@usuario o responde a su mensaje",
   async code(m, sock) {
     const conn = sock;
 
     let mention;
+    let contextInfo = m.message?.extendedTextMessage?.contextInfo;
 
-    // Si se responde a un mensaje
     if (m.quoted?.sender) {
       mention = m.quoted.sender;
+    } else if (contextInfo?.mentionedJid?.[0]) {
+      mention = contextInfo.mentionedJid[0];
     }
 
-    // Si se menciona a alguien
-    else if (m.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]) {
-      mention = m.message.extendedTextMessage.contextInfo.mentionedJid[0];
-    }
-
-    // Si no se menciona ni responde
     if (!mention) {
-      return m.reply("Debes mencionar o responder al mensaje de alguien.");
+      return m.reply("Debes mencionar o responder a alguien.");
     }
 
     try {
@@ -48,25 +44,15 @@ module.exports = {
 
       const caption = `${name1} se vino dentro de ${name2}`;
       const mediaUrl = videos[Math.floor(Math.random() * videos.length)];
-      const isImage = mediaUrl.endsWith(".jpg") || mediaUrl.endsWith(".png");
 
-      const msgContent = isImage
-        ? {
-            image: { url: mediaUrl },
-            caption,
-            mentions: [m.sender, mention]
-          }
-        : {
-            video: { url: mediaUrl },
-            gifPlayback: true,
-            caption,
-            mentions: [m.sender, mention]
-          };
+      const content = mediaUrl.endsWith(".jpg") || mediaUrl.endsWith(".png")
+        ? { image: { url: mediaUrl }, caption, mentions: [m.sender, mention] }
+        : { video: { url: mediaUrl }, gifPlayback: true, caption, mentions: [m.sender, mention] };
 
-      await conn.sendMessage(m.chat, msgContent, { quoted: m });
-    } catch (e) {
-      console.error("Error en el comando cum:", e);
-      m.reply("Ocurrió un error inesperado.");
+      await conn.sendMessage(m.chat, content, { quoted: m });
+    } catch (err) {
+      console.error(err);
+      m.reply("Ocurrió un error al ejecutar el comando.");
     }
   }
 };
