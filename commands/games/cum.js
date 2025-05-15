@@ -17,12 +17,12 @@ module.exports = {
   aliases: [],
   description: "cum",
   category: "games",
-  use: "@usuario",
+  use: "@usuario (o responde a su mensaje)",
   async code(m, sock) {
-    const conn = sock; // conn es sock directamente
+    const conn = sock;
 
-    const mention = m.quoted?.sender || m.mentions?.[0];
-    if (!mention) return m.reply("Etiqueta o responde a alguien.");
+    const mention = m.quoted?.sender || m.mentionedJid?.[0];
+    if (!mention) return m.reply("Etiqueta o responde al mensaje de alguien.");
 
     const name1 = await conn.getName(m.sender);
     const name2 = await conn.getName(mention);
