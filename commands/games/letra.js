@@ -62,7 +62,6 @@ const figuras = [
 
 module.exports = {
   name: "letra",
-  category: "games",
   permissions: {
     group: true
   },
