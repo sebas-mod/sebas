@@ -17,12 +17,20 @@ module.exports = {
   aliases: [],
   description: "cum",
   category: "games",
-  use: "@usuario (o responde a su mensaje)",
+  use: "@usuario o responde al mensaje",
   async code(m, sock) {
     const conn = sock;
 
-    const mention = m.quoted?.sender || m.mentionedJid?.[0];
-    if (!mention) return m.reply("Etiqueta o responde al mensaje de alguien.");
+    let mention;
+    if (m.quoted && m.quoted.sender) {
+      mention = m.quoted.sender;
+    } else if (m.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]) {
+      mention = m.message.extendedTextMessage.contextInfo.mentionedJid[0];
+    }
+
+    if (!mention) {
+      return m.reply("Debes mencionar o responder al mensaje de alguien.");
+    }
 
     const name1 = await conn.getName(m.sender);
     const name2 = await conn.getName(mention);
