@@ -12,7 +12,7 @@ const videos = [
   'https://telegra.ph/file/acdb5c2703ee8390aaf33.mp4'
 ];
 
-export const command = {
+module.exports = {
   name: "cum",
   aliases: [],
   description: "cum",
