@@ -3,7 +3,7 @@ const {
 } = require("@mengkodingan/ckptw");
 
 module.exports = {
-    name: "hidetag",
+    name: "n",
     aliases: ["n"],
     category: "group",
     permissions: {
