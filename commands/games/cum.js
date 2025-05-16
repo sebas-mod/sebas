@@ -31,9 +31,10 @@ let pp11 = 'https://telegra.ph/file/acdb5c2703ee8390aaf33.mp4'
             const senderId = tools.general.getID(senderJid);
             const mentionedJid = ctx.msg.message.extendedTextMessage?.contextInfo?.mentionedJid?.[0];
             const userCumId = tools.general.getID(mentionedJid);
+            const accountJid = ctx.quoted.senderJid || ctx.msg.message.extendedTextMessage?.contextInfo?.mentionedJid?.[0] || null;
 
                 
-                let texto = `${senderName} cumeo a `
+                let texto = `@${senderJid} cumeo a @${accountJid}`
 
             try {
                 return await ctx.reply({
